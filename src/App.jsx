@@ -8,7 +8,7 @@ function App() {
 
   function handleSubmit(e, title, author, desc) {
     e.preventDefault();
-    if (title.trim().length < 3 || !title) {
+    if (!title || title.trim().length < 3) {
       setError("Title cannot be empty or less than 3 characters");
       return false;
     }
@@ -39,18 +39,23 @@ function App() {
       desc,
     };
 
-    setNote(prev => [...prev, newNote]);
+    setNote((prev) => [...prev, newNote]);
     setError("");
     console.log(notes);
     return true;
   }
 
+  function deleteNote(id) {
+    setNote(prev=> prev.filter((note) => note.id !== id));
+    
+  }
+
   return (
     <div className="container">
-    <AddNote onAddnote={handleSubmit} error={error} />
-    <NoteList notes={notes}/>
-   </div>
-  ) 
+      <AddNote onAddnote={handleSubmit} error={error} />
+      <NoteList notes={notes} onDeleteNote={deleteNote} />
+    </div>
+  );
 }
 
 export default App;
