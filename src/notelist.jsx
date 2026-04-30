@@ -1,5 +1,16 @@
 import NoteCard from "./notecard";
-function NoteList({ notes, onDeleteNote }) {
+function NoteList({ notes, onDeleteNote ,searchQuery }) {
+
+    if(notes.length === 0 && searchQuery){
+
+         return <p className="error">No results Found</p>
+         
+    }
+
+    if(notes.length ===0 ){
+
+         return <p  className="error">No notes yet , Create one.</p>
+    }
   return (
     <ul className="notes">
       {notes.map((note) => {

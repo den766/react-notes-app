@@ -1,9 +1,11 @@
 import { useState } from "react";
 import AddNote from "./addnote";
 import NoteList from "./notelist";
+import SearchBar from "./searchbar";
 
 function App() {
   const [notes, setNote] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const [error, setError] = useState("");
 
   function handleSubmit(e, title, author, desc) {
@@ -46,14 +48,25 @@ function App() {
   }
 
   function deleteNote(id) {
-    setNote(prev=> prev.filter((note) => note.id !== id));
-    
+    setNote((prev) => prev.filter((note) => note.id !== id));
   }
+
+  function searchNote(search) {
+    setSearchQuery(search);
+  }
+
+  const filteredNotes = notes.filter(
+    (note) =>
+      note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      note.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      note.desc.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
 
   return (
     <div className="container">
+      <SearchBar searchQuery={searchQuery} onSearchNote={searchNote} />
       <AddNote onAddnote={handleSubmit} error={error} />
-      <NoteList notes={notes} onDeleteNote={deleteNote} />
+      <NoteList notes={filteredNotes} onDeleteNote={deleteNote} searchQuery={searchQuery} />
     </div>
   );
 }
