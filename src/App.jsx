@@ -7,6 +7,7 @@ function App() {
   const [notes, setNote] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [error, setError] = useState("");
+  const [editingId, setEditingId] = useState("");
 
   function handleSubmit(e, title, author, desc) {
     e.preventDefault();
@@ -62,11 +63,39 @@ function App() {
       note.desc.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
+  function handleEditClick(id) {
+    setEditingId(id);
+    console.log(id);
+  }
+
+  function editNote(id, title, author, desc) {
+    setNote((prev) =>
+      prev.map((note) =>
+        note.id === id ? { ...note, title, author, desc } : note,
+      ),
+    );
+
+    setEditingId(null);
+  }
+
+  function handleCancelEdit(){
+
+     setEditingId(null);
+  }
+
   return (
     <div className="container">
       <SearchBar searchQuery={searchQuery} onSearchNote={searchNote} />
       <AddNote onAddnote={handleSubmit} error={error} />
-      <NoteList notes={filteredNotes} onDeleteNote={deleteNote} searchQuery={searchQuery} />
+      <NoteList
+        notes={filteredNotes}
+        onDeleteNote={deleteNote}
+        searchQuery={searchQuery}
+        onEditNote={handleEditClick}
+        editingId={editingId}
+        editNote={editNote}
+        onCancelNote={handleCancelEdit}
+      />
     </div>
   );
 }
