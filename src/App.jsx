@@ -2,6 +2,7 @@ import { useState } from "react";
 import AddNote from "./addnote";
 import NoteList from "./notelist";
 import SearchBar from "./searchbar";
+import { validateNote } from "./utils/validation";
 
 function App() {
   const [notes, setNote] = useState([]);
@@ -11,18 +12,11 @@ function App() {
 
   function handleSubmit(e, title, author, desc) {
     e.preventDefault();
-    if (!title || title.trim().length < 3) {
-      setError("Title cannot be empty or less than 3 characters");
-      return false;
-    }
 
-    if (author.trim().length < 3 || !author) {
-      setError("Author cannot be empty or less than 3 charactres");
-      return false;
-    }
+    const validationError = validateNote(title, author, desc);
 
-    if (desc.trim().length < 6 || !desc) {
-      setError("Description cannot be empty or less than 6 characters ");
+    if (validationError) {
+      setError(validationError);
       return false;
     }
 
@@ -69,6 +63,11 @@ function App() {
   }
 
   function editNote(id, title, author, desc) {
+    const validationError = validateNote(title, author, desc);
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
     setNote((prev) =>
       prev.map((note) =>
         note.id === id ? { ...note, title, author, desc } : note,
@@ -78,9 +77,8 @@ function App() {
     setEditingId(null);
   }
 
-  function handleCancelEdit(){
-
-     setEditingId(null);
+  function handleCancelEdit() {
+    setEditingId(null);
   }
 
   return (
