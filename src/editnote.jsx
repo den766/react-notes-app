@@ -4,7 +4,7 @@ function EditForm({ id, title, author, desc, EditNote  , onCancelNote}) {
   const [editedAuthor, setEditedAuthor] = useState(author);
   const [editedDesc, setEditedDesc] = useState(desc);
   return (
-    <div>
+    <div className="editForm">
       <input
         type="text"
         placeholder="title"

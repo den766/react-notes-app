@@ -21,21 +21,23 @@ function AddNote({ onAddnote, error }) {
         <div className="controls">
         <input
           type="text"
-          placeholder="title"
+          placeholder="Note title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
         <input
           type="text"
-          placeholder="author"
+          placeholder="Author name"
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
         />
         <textarea
+          placeholder="write note..."
+          rows={4}
           value={desc}
           onChange={(e) => setDesc(e.target.value)}
         ></textarea>
-        <button type="submit">ADD</button>
+        <button type="submit">Add Note</button>
         </div>
 
         {error && <p className="error">{error}</p>}

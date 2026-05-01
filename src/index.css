@@ -18,6 +18,11 @@ body {
   margin: auto;
 }
 
+.container > h1{
+
+   margin-bottom: 20px;
+}
+
 /* FORM */
 form {
   background: white;
@@ -41,7 +46,7 @@ textarea {
 
 /* BUTTON */
 button {
-  padding: 10px 14px;
+  padding: 8px 14px;
   border: none;
   border-radius: 6px;
   background: #333;
@@ -75,6 +80,27 @@ button:hover {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
+.note-title{
+
+   font-weight: bold;
+   margin-bottom: 10px;
+}
+
+.note-author{
+   
+  font-weight: 550;
+  margin-bottom: 10px;
+}
+
+.note > h5 {
+  font-weight: 500;
+}
+
+.note > button {
+  margin-right: 10px;
+  margin-top: 15px;
+}
+
 /* TEXT */
 .note-title {
   font-weight: bold;
@@ -85,4 +111,11 @@ button:hover {
   font-size: 14px;
   color: #555;
   margin-bottom: 6px;
+}
+
+/* EdiForm */
+
+.editForm  > button{
+
+  margin-right: 10px;    
 }

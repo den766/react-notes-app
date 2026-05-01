@@ -25,8 +25,8 @@ function NoteCard({
   }
   return (
     <li className="note">
-      <h1>{title}</h1>
-      <h2>{author}</h2>
+      <div className="note-title">{title}</div>
+      <div className="note-author">{author}</div>
       <p>{desc}</p>
       <button onClick={() => onDeleteNote(id)}>Delete</button>
       <button onClick={() => onEditNote(id)}>Edit</button>

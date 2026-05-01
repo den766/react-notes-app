@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Header from "./header";
 import AddNote from "./addnote";
 import NoteList from "./notelist";
 import SearchBar from "./searchbar";
@@ -83,6 +84,7 @@ function App() {
 
   return (
     <div className="container">
+      <Header/>
       <SearchBar searchQuery={searchQuery} onSearchNote={searchNote} />
       <AddNote onAddnote={handleSubmit} error={error} />
       <NoteList
