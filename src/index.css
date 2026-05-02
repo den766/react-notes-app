@@ -8,7 +8,7 @@
 /* BODY */
 body {
   font-family: system-ui, sans-serif;
-  background: #f4f6f8;
+  background: #eef4ff;
   padding: 40px;
 }
 
@@ -18,9 +18,8 @@ body {
   margin: auto;
 }
 
-.container > h1{
-
-   margin-bottom: 20px;
+.container > h1 {
+  margin-bottom: 20px;
 }
 
 /* FORM */
@@ -32,12 +31,9 @@ form {
   margin-bottom: 20px;
 }
 
-
-.controls > .error{
-
+.controls > .error {
   margin-bottom: 12px;
 }
-
 
 /* INPUTS */
 input,
@@ -87,14 +83,12 @@ button:hover {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
-.note-title{
-
-   font-weight: bold;
-   margin-bottom: 10px;
+.note-title {
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
-.note-author{
-   
+.note-author {
   font-weight: 550;
   margin-bottom: 10px;
 }
@@ -122,11 +116,10 @@ button:hover {
 
 /* EdiForm */
 
-.editForm  > button{
-
-  margin-right: 10px;    
+.editForm > button {
+  margin-right: 10px;
 }
 
 .pinned {
-    border-left: 4px solid gold;
+  border-left: 4px solid gold;
 }
