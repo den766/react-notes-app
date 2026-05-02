@@ -19,28 +19,27 @@ function AddNote({ onAddnote, error }) {
         }}
       >
         <div className="controls">
-        <input
-          type="text"
-          placeholder="Note title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Author name"
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
-        />
-        <textarea
-          placeholder="write note..."
-          rows={4}
-          value={desc}
-          onChange={(e) => setDesc(e.target.value)}
-        ></textarea>
-        <button type="submit">Add Note</button>
+          {error && <p className="error">{error}</p>}
+          <input
+            type="text"
+            placeholder="Note title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Author name"
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
+          />
+          <textarea
+            placeholder="write note..."
+            rows={4}
+            value={desc}
+            onChange={(e) => setDesc(e.target.value)}
+          ></textarea>
+          <button type="submit">Add Note</button>
         </div>
-
-        {error && <p className="error">{error}</p>}
       </form>
     </>
   );

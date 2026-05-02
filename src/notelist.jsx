@@ -1,5 +1,5 @@
 import NoteCard from "./notecard";
-function NoteList({ notes, onDeleteNote ,searchQuery , onEditNote , editingId, editNote , onCancelNote}) {
+function NoteList({ notes, onDeleteNote ,searchQuery , onEditNote , editingId, editNote , onCancelNote , onPinNote}) {
 
     if(notes.length === 0 && searchQuery){
 
@@ -26,6 +26,8 @@ function NoteList({ notes, onDeleteNote ,searchQuery , onEditNote , editingId, e
             editingId={editingId}
             EditNote={editNote}
             onCancelNote={onCancelNote}
+            onPinNote={onPinNote}
+            pinned={note.pinned}
           />
         );
       })}

@@ -9,7 +9,7 @@ function App() {
   const [notes, setNote] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [error, setError] = useState("");
-  const [editingId, setEditingId] = useState("");
+  const [editingId, setEditingId] = useState(null);
 
   function handleSubmit(e, title, author, desc) {
     e.preventDefault();
@@ -35,6 +35,7 @@ function App() {
       title,
       author,
       desc,
+      pinned: false,
     };
 
     setNote((prev) => [...prev, newNote]);
@@ -57,6 +58,8 @@ function App() {
       note.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
       note.desc.toLowerCase().includes(searchQuery.toLowerCase()),
   );
+
+  const sortedNotes = [...filteredNotes].sort((a, b) => b.pinned - a.pinned);
 
   function handleEditClick(id) {
     setEditingId(id);
@@ -82,19 +85,37 @@ function App() {
     setEditingId(null);
   }
 
+  function pinNote(id) {
+    setNote((prev) =>
+      prev.map((note) => {
+        if (note.id === id) {
+          return {
+            ...note,
+            pinned: !note.pinned,
+          };
+        } else {
+          return note;
+        }
+      }),
+    );
+
+    console.log(notes);
+  }
+
   return (
     <div className="container">
-      <Header/>
+      <Header />
       <SearchBar searchQuery={searchQuery} onSearchNote={searchNote} />
       <AddNote onAddnote={handleSubmit} error={error} />
       <NoteList
-        notes={filteredNotes}
+        notes={sortedNotes}
         onDeleteNote={deleteNote}
         searchQuery={searchQuery}
         onEditNote={handleEditClick}
         editingId={editingId}
         editNote={editNote}
         onCancelNote={handleCancelEdit}
+        onPinNote={pinNote}
       />
     </div>
   );

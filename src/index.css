@@ -32,6 +32,13 @@ form {
   margin-bottom: 20px;
 }
 
+
+.controls > .error{
+
+  margin-bottom: 12px;
+}
+
+
 /* INPUTS */
 input,
 textarea {
@@ -118,4 +125,8 @@ button:hover {
 .editForm  > button{
 
   margin-right: 10px;    
+}
+
+.pinned {
+    border-left: 4px solid gold;
 }
