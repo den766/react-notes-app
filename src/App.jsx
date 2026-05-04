@@ -4,6 +4,7 @@ import AddNote from "./addnote";
 import NoteList from "./notelist";
 import SearchBar from "./searchbar";
 import { validateNote } from "./utils/validation";
+import { sanitize, formatTitle, formatAuthor } from "./utils/format";
 
 function App() {
   const [notes, setNote] = useState([]);
@@ -14,7 +15,11 @@ function App() {
   function handleSubmit(e, title, author, desc) {
     e.preventDefault();
 
-    const validationError = validateNote(title, author, desc);
+    const cleanTitle = formatTitle(title);
+    const cleanAuthor = formatAuthor(author);
+    const cleanDesc = sanitize(desc);
+
+    const validationError = validateNote(cleanTitle, cleanAuthor, cleanDesc);
 
     if (validationError) {
       setError(validationError);
@@ -32,15 +37,15 @@ function App() {
 
     const newNote = {
       id: Date.now(),
-      title,
-      author,
-      desc,
+      title: cleanTitle,
+      author: cleanAuthor,
+      desc: cleanDesc,
       pinned: false,
     };
 
     setNote((prev) => [...prev, newNote]);
     setError("");
-    console.log(notes);
+
     return true;
   }
 
@@ -63,18 +68,23 @@ function App() {
 
   function handleEditClick(id) {
     setEditingId(id);
-    console.log(id);
   }
 
   function editNote(id, title, author, desc) {
-    const validationError = validateNote(title, author, desc);
+    const cleanTitle = formatTitle(title);
+    const cleanAuthor = formatAuthor(author);
+    const cleanDes = sanitize(desc);
+
+    const validationError = validateNote(cleanTitle, cleanAuthor, cleanDes);
     if (validationError) {
       setError(validationError);
       return;
     }
     setNote((prev) =>
       prev.map((note) =>
-        note.id === id ? { ...note, title, author, desc } : note,
+        note.id === id
+          ? { ...note, title: cleanTitle, author: cleanAuthor, desc: cleanDes }
+          : note,
       ),
     );
 
@@ -98,8 +108,6 @@ function App() {
         }
       }),
     );
-
-    console.log(notes);
   }
 
   return (
