@@ -41,6 +41,7 @@ function App() {
       author: cleanAuthor,
       desc: cleanDesc,
       pinned: false,
+      date : new Date().toISOString(),
     };
 
     setNote((prev) => [...prev, newNote]);

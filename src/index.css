@@ -114,6 +114,11 @@ button:hover {
   margin-bottom: 6px;
 }
 
+.note-date{
+
+   margin-top: 10px;
+}
+
 /* EdiForm */
 
 .editForm > button {

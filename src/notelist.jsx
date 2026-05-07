@@ -21,6 +21,7 @@ function NoteList({ notes, onDeleteNote ,searchQuery , onEditNote , editingId, e
             title={note.title}
             author={note.author}
             desc={note.desc}
+            date={note.date}
             onDeleteNote={onDeleteNote}
             onEditNote={onEditNote}
             editingId={editingId}

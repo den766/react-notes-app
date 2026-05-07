@@ -5,7 +5,7 @@ export function sanitize(txt) {
 export function formatTitle(title) {
   const clean = sanitize(title);
 
-  return clean.charAt(0).toUpperCase() + title.slice(1).toLowerCase();
+  return clean.charAt(0).toUpperCase() + clean.slice(1).toLowerCase();
 }
 
 export function formatAuthor(author) {
@@ -16,3 +16,15 @@ export function formatAuthor(author) {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(" ");
 }
+
+const formatter = new Intl.DateTimeFormat("en-IN", {
+  dateStyle: "short",
+  timeStyle: "medium",
+  timeZone: "Asia/Kolkata",
+});
+
+export const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  if (isNaN(date)) return "Unknown date";
+  return formatter.format(date);
+};
