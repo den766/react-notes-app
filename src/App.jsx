@@ -1,16 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./header";
 import AddNote from "./addnote";
 import NoteList from "./notelist";
 import SearchBar from "./searchbar";
 import { validateNote } from "./utils/validation";
 import { sanitize, formatTitle, formatAuthor } from "./utils/format";
+import { saveNotes, loadNotes } from "./utils/storage";
 
 function App() {
-  const [notes, setNote] = useState([]);
+  const [notes, setNote] = useState(() => loadNotes());
   const [searchQuery, setSearchQuery] = useState("");
   const [error, setError] = useState("");
   const [editingId, setEditingId] = useState(null);
+
+  useEffect(() => {
+    saveNotes(notes);
+  }, [notes]);
 
   function handleSubmit(e, title, author, desc) {
     e.preventDefault();
@@ -27,7 +32,7 @@ function App() {
     }
 
     const isDuplicate = notes.some(
-      (note) => note.title === title && note.author === author,
+      (note) => note.title === cleanTitle && note.author === cleanAuthor,
     );
 
     if (isDuplicate) {
@@ -41,7 +46,7 @@ function App() {
       author: cleanAuthor,
       desc: cleanDesc,
       pinned: false,
-      date : new Date().toISOString(),
+      date: new Date().toISOString(),
     };
 
     setNote((prev) => [...prev, newNote]);
