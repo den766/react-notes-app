@@ -11,6 +11,8 @@ function AddNote({ onAddnote, error }) {
         onSubmit={(e) => {
           const success = onAddnote(e, title.value, author.value, desc.value);
 
+
+
           if (success) {
             title.reset();
             author.reset();
