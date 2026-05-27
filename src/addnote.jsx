@@ -1,20 +1,20 @@
-import { useState } from "react";
+import useInput from "./hooks/useInput";
 
 function AddNote({ onAddnote, error }) {
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [desc, setDesc] = useState("");
+  const title = useInput();
+  const author = useInput();
+  const desc = useInput();
 
   return (
     <>
       <form
         onSubmit={(e) => {
-          const success = onAddnote(e, title, author, desc);
+          const success = onAddnote(e, title.value, author.value, desc.value);
 
           if (success) {
-            setTitle("");
-            setAuthor("");
-            setDesc("");
+            title.reset();
+            author.reset();
+            desc.reset();
           }
         }}
       >
@@ -23,20 +23,20 @@ function AddNote({ onAddnote, error }) {
           <input
             type="text"
             placeholder="Note title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={title.value}
+            onChange={title.handleChange}
           />
           <input
             type="text"
             placeholder="Author name"
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
+            value={author.value}
+            onChange={author.handleChange}
           />
           <textarea
             placeholder="write note..."
             rows={4}
-            value={desc}
-            onChange={(e) => setDesc(e.target.value)}
+            value={desc.value}
+            onChange={desc.handleChange}
           ></textarea>
           <button type="submit">Add Note</button>
         </div>
