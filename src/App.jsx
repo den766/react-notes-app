@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import Header from "./header";
 import AddNote from "./addnote";
 import NoteList from "./notelist";
@@ -6,12 +7,20 @@ import SearchBar from "./searchbar";
 import { validateNote } from "./utils/validation";
 import { sanitize, formatTitle, formatAuthor } from "./utils/format";
 import { saveNotes, loadNotes } from "./utils/storage";
+import Login from "./pages/login";
+import Profile from "./pages/profile";
+import Dashboard from "./pages/dashboard";
+import ProtectedRoute from "./pages/protectedroute";
+import Home from "./pages/home";
+import Notes from "./pages/notes";
+import NoteDetail from "./pages/notesdetails";
 
 function App() {
   const [notes, setNote] = useState(() => loadNotes());
   const [searchQuery, setSearchQuery] = useState("");
   const [error, setError] = useState("");
   const [editingId, setEditingId] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     saveNotes(notes);
@@ -131,6 +140,25 @@ function App() {
         onCancelNote={handleCancelEdit}
         onPinNote={pinNote}
       />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login  setIsLoggedIn={setIsLoggedIn}/>} />
+        <Route path="/profile" element={<Profile />} />
+
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route path="/notes" element={<Notes/>}/>
+        
+        {/* <Route path="/notes/:id" element={<NoteDetail notes={notes}/>}/> */}
+      </Routes>
     </div>
   );
 }
