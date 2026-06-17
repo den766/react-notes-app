@@ -14,6 +14,9 @@ function NoteCard({
   onCancelNote,
   onPinNote,
   pinned,
+  selectId,
+  openModal,
+  closeModal,
 }) {
   if (editingId === id) {
     return (
@@ -28,15 +31,40 @@ function NoteCard({
     );
   }
   return (
-    <li className={`note ${pinned ? "pinned" : ""}`}>
-      <div className="note-title">{title}</div>
-      <div className="note-author">{author}</div>
-      <p className="note-description">{desc}</p>
-      <p className="note-date">{formatDate(date)}</p>
-      <button onClick={() => onDeleteNote(id)}>Delete</button>
-      <button onClick={() => onEditNote(id)}>Edit</button>
-      <button onClick={()=> onPinNote(id)}>{pinned ? "unpin" : "pin"}</button>
-    </li>
+    <>
+      <li className={`note ${pinned ? "pinned" : ""}`}>
+        <div className="note-title">{title}</div>
+        <div className="note-author">{author}</div>
+        <p className="note-description">{desc}</p>
+        <p className="note-date">{formatDate(date)}</p>
+        <button onClick={() => openModal(id)}>Delete</button>
+        <button onClick={() => onEditNote(id)}>Edit</button>
+        <button onClick={() => onPinNote(id)}>
+          {pinned ? "unpin" : "pin"}
+        </button>
+      </li>
+
+      {selectId == id && (
+        <div className="modal-overlay">
+          <div className="confirmation-modal">
+            <p>
+              Are you sure want to delete {title}? This action cannot be undone
+            </p>
+            <div className="btn-container">
+              <button onClick={closeModal}>Cancel</button>
+
+              <button
+                onClick={() => {
+                  onDeleteNote(id);
+                }}
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

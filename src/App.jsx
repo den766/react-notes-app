@@ -13,7 +13,7 @@ import Dashboard from "./pages/dashboard";
 import ProtectedRoute from "./pages/protectedroute";
 import Home from "./pages/home";
 import Notes from "./pages/notes";
-import NoteDetail from "./pages/notesdetails";
+// import NoteDetail from "./pages/notesdetails";
 
 function App() {
   const [notes, setNote] = useState(() => loadNotes());

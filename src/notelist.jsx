@@ -1,6 +1,15 @@
 import NoteCard from "./notecard";
+import UserConfirmationModal from "./hooks/userconfirmationmodal";
 function NoteList({ notes, onDeleteNote ,searchQuery , onEditNote , editingId, editNote , onCancelNote , onPinNote}) {
+   
+    const {
 
+        selectId,
+          openModal,
+          closeModal,
+    } = UserConfirmationModal();
+
+  
     if(notes.length === 0 && searchQuery){
 
          return <p className="error">No results Found</p>
@@ -29,6 +38,9 @@ function NoteList({ notes, onDeleteNote ,searchQuery , onEditNote , editingId, e
             onCancelNote={onCancelNote}
             onPinNote={onPinNote}
             pinned={note.pinned}
+            selectId={selectId}
+            openModal={openModal}
+            closeModal={closeModal}
           />
         );
       })}
